@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://maps.google.com/maps/api/js?sensor=false">
+        </script>
+        <script>
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showCurrentLocation);
+            }
+            else
+            {
+               alert("Geolocation API not supported.");
+            }
+
+            function showCurrentLocation(position)
+            {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var coords = new google.maps.LatLng(latitude, longitude);
+                
+                var mapOptions = {
+                zoom: 15,
+                center: coords,
+                mapTypeControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            //create the map, and place it in the HTML map div
+            map = new google.maps.Map(
+            document.getElementById("mapPlaceholder"), mapOptions
+            );
+
+            //place the initial marker
+            var marker = new google.maps.Marker({
+            position: coords,
+            map: map,
+            title: "Current location!"
+            });
+            }
+
+            var posinfo=document.getElementById("x");
+            function showPosition(){
+              posinfo.innerHTML="Latitude: " + position.coords.latitude + 
+              "<br>Longitude: " + longitude;    
+              }
+
+        </script>
+    </head>
+    <style>
+    #mapPlaceholder {
+        height: 400px;
+        width: 300px;
+    }
+    </style>
+
+    <body>
+        <div>
+        <h3 align="center">Hmm.. Where is my moon?</h3>
+        <div id="mapPlaceholder"></div>
+        <input type="button" value="Get Mack's Pos Info" disabled="true"><br>
+        <input type="button" value="Get Wissal's Pos Info" disabled="true"><br>
+        <input type="button" value="Get Path(car)" disabled="true"><br>
+        <input type="button" value="Get Distance" disabled="true"><br>
+        <p align="center"><small>"Beacause I worry about you<br>I want to make sure that you're safe" ~Mack</small></p>
+        </div>
+    </body>
+</html>
